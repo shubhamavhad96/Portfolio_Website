@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shubham Avhad Portfolio</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: black;
+            color: green;
+            overflow-x: hidden;
+            height: 100%;
+        }
+
+        /* Container for centered layout */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px; /* Padding for spacing on smaller screens */
+        }
+
+
+        /* Fixed Matrix Background */
+        .matrix-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            /* height: 100%; */
+            pointer-events: none; /* Allows clicks to go through the matrix layer */
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        #header {
+            height: 100px;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+            z-index: 1;
+        } 
+        .logo {
+            width: 280px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            width: 0;
+            height: 3px;
+            background: green;
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            transition: width 0.5s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh;
+            text-align: center;
+            color: white;
+        }
+
+        .header-text h1 {
+            font-size: 60px;
+            margin-top: 20px;
+        }
+
+        .header-text p {
+            font-size: 30px;
+            margin-top: 10px;
+        }
+
+        #about {
+            background-color: transparent; /* Make background invisible */
+            color: green; /* Match text color to matrix color */
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1; /* Ensure it's above the matrix background */
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .about-col-1 {
+            flex-basis: 35%;
+        }
+        
+        .about-col-1 img {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        .about-col-2 {
+            padding: 80px 0;
+            color: #ababab;
+            flex-basis: 60%;
+
+        }
+        .sub-title {
+            font-size: 60px;
+            font-weight: 600;
+            color: white;
+            text-align: left;
+            margin-top: -70px; /* move the text upward*/
+        }
+        .description {
+            font-size: 18px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        .tab-titles {
+            display: flex;
+            margin: 20px 0 40px;   
+        }
+        .tab-links {
+            font-size: 18px;
+            margin-right: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+        }
+        .tab-links::after {
+            content: '';
+            width: 0;
+            height: 3px;
+            background: green;
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            transition: 0.5s;
+        }
+        .tab-links.active-link::after {
+            width: 50%;
+        }
+        .tab-contents ul li {
+            list-style: none;
+            margin: 10px 0;
+            text-align: left;
+            margin-left: -40px;
+        }
+        .tab-contents ul li span {
+            color: green;
+            font-size: 18px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .content-text {
+            font-size: 18px;        
+        }
+        .margin-class {
+            margin-top: 10px;
+        }
+        .margin-top {
+            margin-top: 10px;
+        }
+        .tab-contents{
+            display: none;
+        }
+        .tab-contents.active-tab {
+            display: block;
+        }
+        #services {
+            padding: 80px 20px;
+        }
+        .services-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 40px;
+            margin-top: 50px;
+            color: white;
+        }
+        .services-list div {
+            padding: 40px;
+            font-size: 13px;
+            font-weight: 300;
+            background: #262626;
+            border-radius: 10px;
+            transition: background 0.5s, transform 0.5s;
+        }
+        .services-list div a {
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        .services-list div i {
+            font-size: 50px;
+            margin-bottom: 30px;
+        }
+        .services-list div h2 {
+            font-size: 30px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        .services-list div:hover {
+            background: green;
+            transform: translateY(-10px);
+        }
+        #portfolio {
+            padding: 80px 20px;
+        }
+        .work-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 40px;
+            margin-top: 50px;
+        }
+        .work {
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        .work img {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+            transition: transform 0.5s;
+        }
+        .layer {
+            width: 100%;
+            height: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), green);
+            border-radius: 10px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0;
+            text-align: center;
+            font-size: 14px;
+            transition: height 0.5s;
+        }
+        .layer h3 {
+            font-weight: 500;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .layer p {
+            color: white;
+            margin-bottom: 20px;
+        }
+        .layer a {
+            margin-top: 20px;
+            color: green;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 60px;
+            background: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+        }
+        .work:hover img {
+            transform: scale(1.1);
+        }
+        .work:hover .layer {
+            height: 100%;
+        }
+        .btn {
+            display: block;
+            margin: 50px auto;
+            width: fit-content;
+            border: 1px solid green;
+            padding: 14px 50px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: white;
+            transition: background 0.5s;
+        }
+        .btn:hover {
+            background: green;
+        }
+
+        /* Contact */
+        #contact {
+            padding: 80px 20px;
+            /* color: white; */
+        }
+
+        .contact-left {
+            flex-basis: 35%;
+        }
+        .contact-right {
+            flex-basis: 60%;
+        }
+        .contact-left p {
+            margin-top: 30px;
+            color: white;
+        }
+        .contact-left p i {
+            color: white;
+            margin-right: 15px;
+            font-size: 25px;
+        }
+        .social-icons{
+            margin-top: 30px;
+        }
+        .social-icons a {
+            text-decoration: none;
+            font-size: 30px;
+            margin-right: 15px;
+            color: #ababab;
+            display: inline-block;
+            transition: transform 0.5s;
+        }
+        .social-icons a:hover {
+            color: green;
+            transform: translateY(-5px);
+        }
+        .btn.btn2{
+            display: inline-block;
+            background: green;
+        }
+        .contact-right form{
+            width: 100%;
+            margin: -72px 0;
+        }
+        form input, form textarea {
+            width: 100%;
+            border: 0;
+            outline: none;
+            background: #262626;
+            padding: 15px;
+            margin: 15px 0;
+            color: white;
+            font-size: 18px;
+            border-radius: 6px;
+        }
+        form .btn2{
+            padding: 14px 60px;
+            font-size: 18px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .copyright{
+            width: 100%;
+            text-align: center;
+            padding: 25px 0;
+            background: #262626;
+            font-weight: 300;
+            margin-top: 100px;
+        }
+
+         /* CSS For Small Screen */
+         nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            width: 0;
+            height: 3px;
+            background: green;
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            transition: width 0.5s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Added CSS for Hamburger and Close Icons */
+        .fa-bars, .fa-times {
+            font-size: 25px;
+            cursor: pointer;
+            display: none; /* Hidden by default */
+            color: white;
+        }
+       
+        @media only screen and (max-width: 600px) {
+
+        .fa-bars {
+            display: block;
+            color: green; /* Show hamburger icon on small screens */
+        }
+
+        .header-text h1 {
+            font-size: 20px;
+        }
+        .header-text p {
+            font-size: 15px;
+        }
+         /* Sidebar Styling */
+        nav ul {
+            flex-direction: column;
+            background: green;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 400px;
+            padding-top: 50px;
+            padding-left: 15px;
+            padding-bottom: 20px;
+            z-index: 2;
+            transform: translateX(100%); /* Initially off-screen */
+            transition: transform 0.5s ease; /* Smooth transition */
+        }
+
+            nav ul li {
+                display: block;
+                margin: 25px;
+                text-align: left;
+            }
+
+            /* Active class to slide menu in */
+            nav ul.active {
+                transform: translateX(0);
+            }
+
+            /* Position and display close icon */
+            .fa-times {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                font-size: 30px;
+                cursor: pointer;
+            }
+            .sub-title {
+                font-size: 40px;
+            }
+            .about-col-1, .about-col-2{
+                flex-basis: 100%;
+            }
+            .about-col-1{
+                margin-bottom: 30px;
+            }
+            .about-col-2{
+                font-size: 14px;
+            }
+            .tab-links{
+                font-size: 16px;
+                margin-right: 20px;
+            }
+            .contact-left, .contact-right{
+                flex-basis: 100%;
+            }
+            .contact-left {
+                flex-basis: 100%;
+                margin-bottom: 20px; /* Add space below the Download Resume button */
+            }
+            .contact-right {
+                flex-basis: 100%;
+                width: 90%; /* Adjust width for smaller screens */
+                margin-top: 20px; /* Add space above the form to prevent overlap */
+            }
+            .copyright{
+                font-size: 14px;
+            }
+        }
+        /* Hide hamburger and close icons on larger screens */
+        @media only screen and (min-width: 601px) {
+            .fa-bars, .fa-times {
+                display: none !important;
+            }
+        }
+        /* #span {
+            
+            margin-top: -10px;
+            display: block;
+        } */
+        #msg {
+            display: block;
+            margin-top: 70px; /* Adjusts space between the button and the message */
+            font-size: 16px; /* Optional: Adjust font size */
+            color: #61b752;        }
+
+    </style>
+    <script src="https://kit.fontawesome.com/4deb96bbbe.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="matrix-background"></div>
+
+    <div id="header">
+        <img src="images/logo.png" class="logo" alt="Logo">
+        
+        <nav>
+            <ul id="sidemenu">
+                <i class="fa-solid fa-times" onclick="closemenu()"></i>
+                <li><a href="#header">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">My Skills</a></li>
+                <li><a href="#portfolio">My Work</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+        </nav>
+    </div>
+
+    <div class="header-container">
+        <div class="header-text">
+            <h1>Hi, I'm <span style="color: green;">Shubham Avhad</span></h1>
+            <p>Full Stack Developer</p>
+        </div>
+    </div>
+
+    <!-- <section class="VeryTall">Before the About section</section> -->
+
+    <div id="about">
+        <div class="container">
+            <div class="row">
+                <div class="about-col-1">
+                    <img src="images/user.png" alt="User Photo">
+                </div>
+                <div class="about-col-2">
+                    <h1 class="sub-title">About Me</h1>
+                    <p class="description">Here i will add some content</p>
+
+                <div class="tab-titles">
+                    <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
+                    <p class="tab-links" onclick="opentab('experience')">Experience</p>
+                    <p class="tab-links" onclick="opentab('education')">Education</p>
+                </div>
+
+
+                <div class="tab-contents active-tab" id="skills">
+                    <ul>
+                        <li><span>Web Developement</span><br>
+                            <div class="content-text">Full Stack</div>
+                        </li>
+                        <li><span class="margin-class">App Development</span><br>
+                            <div class="content-text">Android Apps</div>
+                        </li>
+                        <li><span class="margin-top">Development in Python</span><br>
+                            <div class="content-text">Full-Stack Web Apps</div>
+                        </li>
+                        <!-- <li><span class="margin-top">Application Security</span><br>
+                            <div class="content-text">Web Application Security </div>
+                        </li> -->
+                        <li><span class="margin-top">Cloud Security</span><br>
+                            <div class="content-text">Security in Cloud Services </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tab-contents" id="experience">
+                    <ul>
+                        <li><span>2019 - 2023</span><br>
+                            <div class="content-text">Cyber Security Engineer</div>
+                        </li>
+                        <li><span class="margin-class">2018 - 2019</span><br>
+                            <div class="content-text">Web Developer Intern</div>
+                        </li>
+                        <!-- <li><span class="margin-top">Development in Python</span><br>
+                            <div class="content-text">Full-Stack Web Apps</div>
+                        </li> -->
+                    </ul>
+                </div>
+
+                <div class="tab-contents" id="education">
+                    <ul>
+                        <li><span>2025</span><br>
+                            <div class="content-text">Masters in Cyber Security in Computer Science</div>
+                        </li>
+                        <li><span class="margin-class">2019</span><br>
+                            <div class="content-text">Bachelor's in Computer Science</div>
+                        </li>
+                        <li><span class="margin-top">2016</span><br>
+                            <div class="content-text">Diploma in Information Technology</div>
+                        </li>
+                    </ul>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Services Section -->
+
+
+    <div id="services">
+        <div class="container">
+            <h1 class="sub-title">My Skills</h1>
+            <div class="services-list">
+                <div>
+                    <i class="fa-solid fa-code"></i>
+                    <h2>Web Developement</h2>
+                    <p>Full Stack Web Developement</p>
+                    <a href="#">Learn more</a>
+                </div>
+                <div>
+                    <i class="fa-brands fa-android"></i>
+                    <h2>Android Developement</h2>
+                    <p>Full Stack Web Developement</p>
+                    <a href="#">Learn more</a>
+                </div>
+                <div>
+                    <i class="fa-brands fa-python"></i>
+                    <h2>Python Projects</h2>
+                    <p>Full Stack Web Developement</p>
+                    <a href="#">Learn more</a>
+                </div>
+                <!-- <div>
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h2>Application Security</h2>
+                    <p>Full Stack Web Developement</p>
+                    <a href="#">Learn more</a>
+                </div> -->
+                <div>
+                    <i class="fa-solid fa-cloud"></i>
+                    <h2>Cloud Security</h2>
+                    <p>Full Stack Web Developement</p>
+                    <a href="#">Learn more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio -->
+
+    <div id="portfolio">
+        <div class="container">
+            <h1 class="sub-title">My Work</h1>
+                <div class="work-list">
+                    <div class="work">
+                        <img src="images/work-1.png">
+                        <div class="layer">
+                            <h3>Social Media App</h3>
+                            <p>Ripple</p>
+                            <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                    <div class="work">
+                        <img src="images/work-2.png">
+                        <div class="layer">
+                            <h3>E-Commerce Website</h3>
+                            <p>Walmart</p>
+                            <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                    <div class="work">
+                        <img src="images/work-3.png">
+                        <div class="layer">
+                            <h3>Video Streaming App</h3>
+                            <p>description</p>
+                            <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#" class="btn">See more</a>
+        </div>
+    </div>
+
+    <!-- Contact -->
+
+    <div id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="contact-left">
+                    <h1 class="sub-title">Contact Me</h1>
+                    <p><i class="fa-sharp fa-solid fa-paper-plane"></i> shubham.avhad222@gmail.com</p>
+                    <p><i class="fa-solid fa-square-phone"></i> +1 571-478-2039</p>
+                    <!-- In the href section you can add the profile links -->
+                    <div class="social-icons">
+                        <a href=""><i class="fa-brands fa-linkedin"></i></a>  
+                        <a href=""><i class="fa-brands fa-instagram"></i></a>
+                        <a href=""><i class="fa-brands fa-square-x-twitter"></i></a>
+                        <a href=""><i class="fa-brands fa-discord"></i></a>
+                        <a href=""><i class="fa-brands fa-github"></i></a>
+                    </div>
+
+                    <a href="images/Shubham_Avhad_Resume.pdf" download class="btn btn2">Download Resume</a>
+                </div>
+                <div class="contact-right">
+                    <form name="submit-to-google-sheet">
+                        <input type="text" name="Name" placeholder="Your Name" required>
+                        <input type="email" name="Email" placeholder="Your Email" required>
+                        <textarea name="Message" rows="6" placeholder="Your Message" required></textarea>
+                        <button type="submit" class="btn btn2">Submit</button>
+                    </form>
+                    <span id="msg"></span>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright">
+                <p>&copy; 2024 Shubham Avhad. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- <section class="VeryTall">After the About</section> -->
+
+    <script>
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; // Includes letters and numbers
+        const matrixBackground = document.querySelector('.matrix-background');
+
+       // Set background height to document height
+        function updateBackgroundHeight() {
+            matrixBackground.style.height = `${document.body.scrollHeight}px`;
+        }
+
+        // Call this once on page load and also on window resize in case content height changes
+        updateBackgroundHeight();
+        window.addEventListener('resize', updateBackgroundHeight);
+
+        function createMatrix() {
+            const span = document.createElement('span');
+            span.style.position = 'absolute';
+            span.style.color = 'green';
+            span.style.fontSize = '20px';
+            span.style.whiteSpace = 'nowrap';
+            span.style.opacity = Math.random();
+            span.textContent = characters.charAt(Math.floor(Math.random() * characters.length)); // Randomly select a letter or number
+                    
+            const x = Math.random() * window.innerWidth;
+            span.style.left = `${x}px`;
+            span.style.top = `-${Math.random() * 100}px`; // Start just above the viewport
+            matrixBackground.appendChild(span);
+                    
+            // Set fall distance to document height so characters fall across the entire page
+            const fallDuration = Math.random() * 3 + 2;
+            const fallDistance = document.body.scrollHeight;
+            span.animate([{ transform: 'translateY(0)' }, { transform: `translateY(${fallDistance}px)` }], {
+                duration: fallDuration * 1000,
+                easing: 'linear',
+                iterations: 1,
+                fill: 'forwards',
+            });
+
+            setTimeout(() => {
+                span.remove();
+            }, fallDuration * 1000);
+            }
+
+            // Create characters at intervals
+            setInterval(createMatrix, 100);
+
+    </script>
+
+
+    <script>
+        var tabLinks = document.getElementsByClassName("tab-links");
+        var tabContents = document.getElementsByClassName("tab-contents");
+
+        function opentab(tabname) {
+            for(tablink of tabLinks) {
+                tablink.classList.remove("active-link");
+            }
+            for(tabcontent of tabContents) {
+                tabcontent.classList.remove("active-tab");
+            }
+            event.currentTarget.classList.add("active-link");
+            document.getElementById(tabname).classList.add("active-tab");
+        }
+    </script>
+
+<script>
+    const sidemenu = document.getElementById("sidemenu");
+
+// JavaScript functions to toggle the menu
+function openmenu() {
+    sidemenu.classList.add("active");
+}
+
+function closemenu() {
+    sidemenu.classList.remove("active");
+}
+
+</script>
+
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzoAuQ32p22XwgwvUGV0ElT-A-Hutg5hDf0fc5TlVC77ger7LlrxDNqF0P11FhBKSBk/exec'
+    const form = document.forms['submit-to-google-sheet']
+    const msg = document.getElementById('msg')
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+            msg.innerHTML = "Message Sent Successfully";
+            setTimeout(() => {
+                msg.innerHTML = "";
+            }, 5000);
+            form.reset();
+        })
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
+
+
+</body>
+</html>
